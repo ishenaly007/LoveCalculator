@@ -1,11 +1,12 @@
 package com.abit8.lovecalculator
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.abit8.lovecalculator.databinding.FragmentResultBinding
+import com.abit8.lovecalculator.remote.LoveModel
 
 
 class ResultFragment : Fragment() {

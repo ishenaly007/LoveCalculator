@@ -1,20 +1,20 @@
 package com.abit8.lovecalculator
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.abit8.lovecalculator.databinding.FragmentFirstBinding
-import retrofit2.Call
-import retrofit2.Response
+import com.abit8.lovecalculator.viewModel.LoveViewModel
 
 
 class FirstFragment : Fragment() {
     private lateinit var binding: FragmentFirstBinding
-
+    private val viewModel: LoveViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -38,26 +38,13 @@ class FirstFragment : Fragment() {
     private fun initClicker() {
         with(binding) {
             btnCalculate.setOnClickListener {
-                LoveService().api.calculatePersentage(
-                    firstName = firstnameEt.text.toString(),
-                    secondName = secondnameEt.text.toString(),
-
-                    ).enqueue(object : retrofit2.Callback<LoveModel> {
-                    override fun onResponse(call: Call<LoveModel>, response: Response<LoveModel>) {
-                        if (response.isSuccessful) {
-                            findNavController().navigate(
-                                R.id.resultFragment,
-                                bundleOf("result" to response.body())
-                            )
-                            //android.util.Log.e("asas", "onResponse: ${response.body()}")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<LoveModel>, t: Throwable) {
-                        //android.util.Log.e("asas", "onResponse: ${t.message}")
-                    }
-
-                })
+                viewModel.getLiveLove(
+                    firstname = firstnameEt.text.toString(),
+                    secondName = secondnameEt.text.toString()
+                ).observe(viewLifecycleOwner,
+                    Observer { LoveModel ->
+                        Log.e("asas", "initClicker: $LoveModel")
+                    })
             }
         }
     }

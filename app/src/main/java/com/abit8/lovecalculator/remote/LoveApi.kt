@@ -1,5 +1,6 @@
-package com.abit8.lovecalculator
+package com.abit8.lovecalculator.remote
 
+import com.abit8.lovecalculator.remote.LoveModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

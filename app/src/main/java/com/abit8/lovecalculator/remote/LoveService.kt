@@ -1,4 +1,4 @@
-package com.abit8.lovecalculator
+package com.abit8.lovecalculator.remote
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
